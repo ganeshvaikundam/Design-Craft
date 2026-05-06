@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "DesignMantic"
+version = "1.0.0"
+id = "artifacts/designmantic"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23312
+
+[services.development]
+run = "pnpm --filter @workspace/designmantic run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/designmantic", "run", "build" ]
+publicDir = "artifacts/designmantic/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23312"
+BASE_PATH = "/"
