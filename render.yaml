@@ -1,7 +1,7 @@
 services:
   - type: web
     name: designmantic
-    runtime: node
+    env: static
     region: oregon
     plan: free
     buildCommand: pnpm install --frozen-lockfile && pnpm --filter @workspace/designmantic run build
