@@ -8,6 +8,8 @@ import LogoMakerPage from "@/pages/LogoMakerPage";
 import WebsiteTemplatesPage from "@/pages/WebsiteTemplatesPage";
 import PricingPage from "@/pages/PricingPage";
 import CustomDesignPage from "@/pages/CustomDesignPage";
+import BusinessCardPage from "@/pages/BusinessCardPage";
+import BrandingPage from "@/pages/BrandingPage";
 import { GlobalModals } from "@/components/modals/GlobalModals";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,8 @@ function App() {
             <Route path="/website/templates" element={<WebsiteTemplatesPage />} />
             <Route path="/website/pricing" element={<PricingPage />} />
             <Route path="/services/custom" element={<CustomDesignPage />} />
+            <Route path="/services/business-card" element={<BusinessCardPage />} />
+            <Route path="/services/branding" element={<BrandingPage />} />
             <Route path="/website/*" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl font-bold">Coming Soon</h1></div>} />
             <Route path="/services/*" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl font-bold">Coming Soon</h1></div>} />
           </Routes>

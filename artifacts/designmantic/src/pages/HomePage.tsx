@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { modalEvents } from "@/lib/modalEvents";
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const appUrl = (path: string) => `${base}${path}`;
+
 export default function HomePage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("logo-design");
@@ -220,7 +223,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Logo Services</h3>
               <p className="text-gray-600 mb-6 text-sm">Professional logos for every business type and industry.</p>
-              <button onClick={() => window.open('/logo-maker', '_blank')} className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
+              <button onClick={() => window.open(appUrl('/logo-maker'), '_blank')} data-testid="service-card-logo-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-business-card">
@@ -229,7 +232,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Business Card Design</h3>
               <p className="text-gray-600 mb-6 text-sm">Create stunning business cards that match your logo perfectly.</p>
-              <button onClick={() => window.open('/services/business-card', '_blank')} className="text-[#c61e53] font-bold hover:underline">Start Now &rarr;</button>
+              <button onClick={() => window.open(appUrl('/services/business-card'), '_blank')} data-testid="service-card-biz-btn" className="text-[#c61e53] font-bold hover:underline">Start Now &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-brand">
@@ -238,7 +241,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Brand Identity</h3>
               <p className="text-gray-600 mb-6 text-sm">Complete branding packages for a cohesive professional look.</p>
-              <button onClick={() => window.open('/services/branding', '_blank')} className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
+              <button onClick={() => window.open(appUrl('/services/branding'), '_blank')} data-testid="service-card-brand-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-video">
