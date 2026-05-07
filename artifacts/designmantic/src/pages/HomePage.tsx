@@ -5,7 +5,7 @@ import { useWindowHandle } from "@/hooks/useWindowHandle";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { openInNewWindow } = useWindowHandle();
+  const { openInNewTab } = useWindowHandle();
   const [activeTab, setActiveTab] = useState("logo-design");
   const [searchTerm, setSearchTerm] = useState("");
   
@@ -222,7 +222,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Logo Services</h3>
               <p className="text-gray-600 mb-6 text-sm">Professional logos for every business type and industry.</p>
-              <button onClick={() => openInNewWindow('logo-maker', '/logo-maker')} data-testid="service-card-logo-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
+              <button onClick={() => openInNewTab('/logo-maker')} data-testid="service-card-logo-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-business-card">
@@ -231,7 +231,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Business Card Design</h3>
               <p className="text-gray-600 mb-6 text-sm">Create stunning business cards that match your logo perfectly.</p>
-              <button onClick={() => openInNewWindow('business-card', '/services/business-card')} data-testid="service-card-biz-btn" className="text-[#c61e53] font-bold hover:underline">Start Now &rarr;</button>
+              <button onClick={() => openInNewTab('/services/business-card')} data-testid="service-card-biz-btn" className="text-[#c61e53] font-bold hover:underline">Start Now &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-brand">
@@ -240,7 +240,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Brand Identity</h3>
               <p className="text-gray-600 mb-6 text-sm">Complete branding packages for a cohesive professional look.</p>
-              <button onClick={() => openInNewWindow('branding', '/services/branding')} data-testid="service-card-brand-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
+              <button onClick={() => openInNewTab('/services/branding')} data-testid="service-card-brand-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-video">
@@ -275,7 +275,7 @@ export default function HomePage() {
               <div key={i} className="group" data-testid={`template-card-${i}`}>
                 <div
                   className="h-56 rounded-t-xl overflow-hidden relative cursor-pointer"
-                  onClick={() => openInNewWindow(`template-${t.slug}`, `/website/templates?preview=${t.slug}`)}
+                  onClick={() => openInNewTab(`/website/templates?preview=${t.slug}`)}
                 >
                   <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" style={{background: t.color}}></div>
                   {/* Mock browser chrome */}
@@ -288,7 +288,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors z-20 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <button
                       data-testid={`template-preview-${i}`}
-                      onClick={(e) => { e.stopPropagation(); openInNewWindow(`template-${t.slug}`, `/website/templates?preview=${t.slug}`); }}
+                      onClick={(e) => { e.stopPropagation(); openInNewTab(`/website/templates?preview=${t.slug}`); }}
                       className="bg-white text-gray-900 px-6 py-2 rounded-full font-bold shadow-lg transform -translate-y-4 group-hover:translate-y-0 transition-all"
                     >
                       Preview
@@ -301,7 +301,7 @@ export default function HomePage() {
                     <span className="text-xs font-medium bg-gray-100 px-2 py-1 rounded text-gray-600">{t.category}</span>
                   </div>
                   <button
-                    onClick={() => openInNewWindow(`template-${t.slug}`, `/website/templates?preview=${t.slug}`)}
+                    onClick={() => openInNewTab(`/website/templates?preview=${t.slug}`)}
                     className="text-sm text-[#c61e53] hover:underline"
                   >
                     Browse Website Designs Free
