@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { modalEvents } from "@/lib/modalEvents";
-import { useWindowHandle } from "@/hooks/useWindowHandle";
-
 export default function HomePage() {
   const navigate = useNavigate();
-  const { openInNewTab } = useWindowHandle();
   const [activeTab, setActiveTab] = useState("logo-design");
   const [searchTerm, setSearchTerm] = useState("");
   
@@ -222,7 +219,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Logo Services</h3>
               <p className="text-gray-600 mb-6 text-sm">Professional logos for every business type and industry.</p>
-              <button onClick={() => openInNewTab('/logo-maker')} data-testid="service-card-logo-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
+              <Link to="/logo-maker" target="_blank" rel="noopener noreferrer" data-testid="service-card-logo-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</Link>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-business-card">
@@ -231,7 +228,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Business Card Design</h3>
               <p className="text-gray-600 mb-6 text-sm">Create stunning business cards that match your logo perfectly.</p>
-              <button onClick={() => openInNewTab('/services/business-card')} data-testid="service-card-biz-btn" className="text-[#c61e53] font-bold hover:underline">Start Now &rarr;</button>
+              <Link to="/services/business-card" target="_blank" rel="noopener noreferrer" data-testid="service-card-biz-btn" className="text-[#c61e53] font-bold hover:underline">Start Now &rarr;</Link>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-brand">
@@ -240,7 +237,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Brand Identity</h3>
               <p className="text-gray-600 mb-6 text-sm">Complete branding packages for a cohesive professional look.</p>
-              <button onClick={() => openInNewTab('/services/branding')} data-testid="service-card-brand-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
+              <Link to="/services/branding" target="_blank" rel="noopener noreferrer" data-testid="service-card-brand-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</Link>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-video">
@@ -273,9 +270,11 @@ export default function HomePage() {
               { id: 2, name: "Portfolio Clean", color: "linear-gradient(135deg, #14532d, #10b981)", category: "Portfolio", slug: "portfolio-clean" }
             ].map((t, i) => (
               <div key={i} className="group" data-testid={`template-card-${i}`}>
-                <div
-                  className="h-56 rounded-t-xl overflow-hidden relative cursor-pointer"
-                  onClick={() => openInNewTab(`/website/templates?preview=${t.slug}`)}
+                <Link
+                  to={`/website/templates?preview=${t.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-56 rounded-t-xl overflow-hidden relative cursor-pointer block"
                 >
                   <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" style={{background: t.color}}></div>
                   {/* Mock browser chrome */}
@@ -286,26 +285,27 @@ export default function HomePage() {
                   </div>
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors z-20 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <button
+                    <span
                       data-testid={`template-preview-${i}`}
-                      onClick={(e) => { e.stopPropagation(); openInNewTab(`/website/templates?preview=${t.slug}`); }}
                       className="bg-white text-gray-900 px-6 py-2 rounded-full font-bold shadow-lg transform -translate-y-4 group-hover:translate-y-0 transition-all"
                     >
                       Preview
-                    </button>
+                    </span>
                   </div>
-                </div>
+                </Link>
                 <div className="bg-white border border-t-0 border-gray-200 p-4 rounded-b-xl shadow-sm">
                   <div className="flex justify-between items-center mb-1">
                     <h3 className="font-bold text-gray-800">{t.name}</h3>
                     <span className="text-xs font-medium bg-gray-100 px-2 py-1 rounded text-gray-600">{t.category}</span>
                   </div>
-                  <button
-                    onClick={() => openInNewTab(`/website/templates?preview=${t.slug}`)}
+                  <Link
+                    to={`/website/templates?preview=${t.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm text-[#c61e53] hover:underline"
                   >
                     Browse Website Designs Free
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
