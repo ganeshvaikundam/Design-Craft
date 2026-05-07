@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { modalEvents } from "@/lib/modalEvents";
-
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const appUrl = (path: string) => `${base}${path}`;
+import { useWindowHandle } from "@/hooks/useWindowHandle";
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { openInNewWindow } = useWindowHandle();
   const [activeTab, setActiveTab] = useState("logo-design");
   const [searchTerm, setSearchTerm] = useState("");
   
@@ -223,7 +222,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Logo Services</h3>
               <p className="text-gray-600 mb-6 text-sm">Professional logos for every business type and industry.</p>
-              <button onClick={() => window.open(appUrl('/logo-maker'), '_blank')} data-testid="service-card-logo-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
+              <button onClick={() => openInNewWindow('logo-maker', '/logo-maker')} data-testid="service-card-logo-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-business-card">
@@ -232,7 +231,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Business Card Design</h3>
               <p className="text-gray-600 mb-6 text-sm">Create stunning business cards that match your logo perfectly.</p>
-              <button onClick={() => window.open(appUrl('/services/business-card'), '_blank')} data-testid="service-card-biz-btn" className="text-[#c61e53] font-bold hover:underline">Start Now &rarr;</button>
+              <button onClick={() => openInNewWindow('business-card', '/services/business-card')} data-testid="service-card-biz-btn" className="text-[#c61e53] font-bold hover:underline">Start Now &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-brand">
@@ -241,7 +240,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">Brand Identity</h3>
               <p className="text-gray-600 mb-6 text-sm">Complete branding packages for a cohesive professional look.</p>
-              <button onClick={() => window.open(appUrl('/services/branding'), '_blank')} data-testid="service-card-brand-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
+              <button onClick={() => openInNewWindow('branding', '/services/branding')} data-testid="service-card-brand-btn" className="text-[#c61e53] font-bold hover:underline">Try Free &rarr;</button>
             </div>
             
             <div className="border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-shadow text-center group" data-testid="service-card-video">
@@ -269,12 +268,15 @@ export default function HomePage() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {[
-              { id: 0, name: "Business Pro", color: "linear-gradient(135deg, #1e3a8a, #3b82f6)", category: "Business" },
-              { id: 1, name: "Restaurant Deluxe", color: "linear-gradient(135deg, #7f1d1d, #ef4444)", category: "Restaurant" },
-              { id: 2, name: "Portfolio Clean", color: "linear-gradient(135deg, #14532d, #10b981)", category: "Portfolio" }
+              { id: 0, name: "Business Pro", color: "linear-gradient(135deg, #1e3a8a, #3b82f6)", category: "Business", slug: "business-pro" },
+              { id: 1, name: "Restaurant Deluxe", color: "linear-gradient(135deg, #7f1d1d, #ef4444)", category: "Restaurant", slug: "restaurant-deluxe" },
+              { id: 2, name: "Portfolio Clean", color: "linear-gradient(135deg, #14532d, #10b981)", category: "Portfolio", slug: "portfolio-clean" }
             ].map((t, i) => (
               <div key={i} className="group" data-testid={`template-card-${i}`}>
-                <div className="h-56 rounded-t-xl overflow-hidden relative cursor-pointer" onClick={() => modalEvents.open('templatePreview', t)}>
+                <div
+                  className="h-56 rounded-t-xl overflow-hidden relative cursor-pointer"
+                  onClick={() => openInNewWindow(`template-${t.slug}`, `/website/templates?preview=${t.slug}`)}
+                >
                   <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" style={{background: t.color}}></div>
                   {/* Mock browser chrome */}
                   <div className="absolute top-0 left-0 right-0 h-6 bg-white/20 backdrop-blur-sm flex items-center px-2 gap-1.5 z-10">
@@ -284,9 +286,9 @@ export default function HomePage() {
                   </div>
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors z-20 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <button 
+                    <button
                       data-testid={`template-preview-${i}`}
-                      onClick={(e) => { e.stopPropagation(); modalEvents.open('templatePreview', t); }} 
+                      onClick={(e) => { e.stopPropagation(); openInNewWindow(`template-${t.slug}`, `/website/templates?preview=${t.slug}`); }}
                       className="bg-white text-gray-900 px-6 py-2 rounded-full font-bold shadow-lg transform -translate-y-4 group-hover:translate-y-0 transition-all"
                     >
                       Preview
@@ -298,7 +300,12 @@ export default function HomePage() {
                     <h3 className="font-bold text-gray-800">{t.name}</h3>
                     <span className="text-xs font-medium bg-gray-100 px-2 py-1 rounded text-gray-600">{t.category}</span>
                   </div>
-                  <Link to="/website/templates" className="text-sm text-[#c61e53] hover:underline">Browse Website Designs Free</Link>
+                  <button
+                    onClick={() => openInNewWindow(`template-${t.slug}`, `/website/templates?preview=${t.slug}`)}
+                    className="text-sm text-[#c61e53] hover:underline"
+                  >
+                    Browse Website Designs Free
+                  </button>
                 </div>
               </div>
             ))}
